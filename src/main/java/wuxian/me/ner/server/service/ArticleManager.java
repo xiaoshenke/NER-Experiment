@@ -45,6 +45,15 @@ public class ArticleManager {
     static List<Article> articleList = new ArrayList<>();
 
 
+    @Nullable
+    public static List<String> getWordsBy(Long articleId) {
+
+        Article article = findArticleBy(articleId);
+
+        return article == null ? null : article.wordList;
+    }
+
+
     public static Long addAritle(String title, String path) throws Exception {
         if (title == null || title.length() == 0) {
             throw new Exception("title not valid!");
@@ -63,6 +72,7 @@ public class ArticleManager {
         String[] list = content.split("\\s");
         art.wordList = Arrays.asList(list);
         art.articleId = genId(art.title);
+        articleList.add(art);
         return art.articleId;
     }
 
@@ -100,6 +110,8 @@ public class ArticleManager {
         art.title = title;
         art.wordList = wordList;
         art.articleId = genId(art.title);
+        articleList.add(art);
+
         return art.articleId;
     }
 
