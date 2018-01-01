@@ -14,8 +14,9 @@ public class SingleServer {
 
     private void launch() throws Exception {
         Server server = new Server(8089);
+
         Context context = new Context(server, "/", Context.SESSIONS);
-        context.addServlet(new ServletHolder(new NerServlet()), "/ner");
+        context.addServlet(new ServletHolder(new NerServlet()), "/ner/*");
         NerServer.launch(new NerServer(server, context));
     }
 

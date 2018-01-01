@@ -1,6 +1,8 @@
 package wuxian.me.ner.server;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.codehaus.jackson.map.ObjectMapper;
+import wuxian.me.ner.server.controller.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,17 +14,10 @@ import java.io.OutputStream;
 
 /**
  * Created by wuxian on 31/12/2017.
- * <p>
- * 1 上传切分好词的接口 article:String,content:List[String]
- * 2 词频统计接口
- * 3 根据(以n为长度)连词词频识别未登陆词接口
- * 4 根据freedom识别未登陆词接口
- * 5 根据凝聚度识别未登陆词接口
- * 6 动态将"已识别词"加入词典接口
- * 7 打印"已识别词"接口
  */
 public class NerServlet extends HttpServlet {
 
+    private static final String BASE_URL = "/ner";
     private NerServer application;
 
     public NerServlet() {
@@ -31,21 +26,45 @@ public class NerServlet extends HttpServlet {
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
-
-        System.out.println("executor servlet");
-        this.application =
-                (NerServer) config.getServletContext().getAttribute(
-                        Constants.NER_SERVLET_CONTEXT_KEY);
+        //System.out.println("enr servlet");
+        this.application = (NerServer) config.getServletContext().getAttribute(
+                Constants.NER_SERVLET_CONTEXT_KEY);
     }
 
     @Override
     public void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
 
-        System.out.println("doGet");
-        if (hasParam(req, "hello")) {
-            writeJSON(resp, "hello world");
+        String relativeURI = req.getRequestURI().substring(BASE_URL.length());
+
+        if (relativeURI.startsWith("/upload")) {
+            new UploadController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/series")) {
+            new SeriesController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/freedom")) {
+            new FreedomController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/consilience")) {
+            new ConsilienceController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/exportWords")) {
+            new ExportWordsController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/print")) {
+            new PrintController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/remove")) {
+            new RemoveController(relativeURI).doGet(req, resp);
+
+        } else if (relativeURI.startsWith("/addword")) {
+            new AddWordController(relativeURI).doGet(req, resp);
         }
+
+        //if (hasParam(req, "hello")) {
+        //    writeJSON(resp, "hello world");
+        //}
     }
 
     public boolean hasParam(final HttpServletRequest request, final String param) {
