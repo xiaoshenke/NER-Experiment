@@ -25,7 +25,6 @@ public class Writings extends MidStatistics {
         return baseWordList == null ? 0 : baseWordList.size();
     }
 
-
     public String indexOf(int pos) {
         if (baseWordList == null) {
             return null;
@@ -40,6 +39,7 @@ public class Writings extends MidStatistics {
 
     public void setBaseWordList(List<String> wordList) {
         this.baseWordList = wordList;
+        setReady(true);
     }
 
     public List<String> getBaseWordList() {

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * Created by wuxian on 1/1/2018.
- * 上传且分词接口
+ * 上传切分词接口
  */
 public class UploadController extends BaseController {
 

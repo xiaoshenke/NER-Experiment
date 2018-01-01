@@ -53,8 +53,14 @@ public class MidStatistics {
         return mWritings;
     }
 
+    private boolean ready = false;
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
     public boolean ready() {
-        return wordPostionMap != null && mWritings != null;
+        return ready || (wordPostionMap != null && mWritings != null);
     }
 
     public MidStatistics(int dimension) {
