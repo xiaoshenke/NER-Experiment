@@ -29,12 +29,12 @@ public class NerLine {
     }
 
     /**
-     * Starts the program with redirected input. For redirected output,
+     * Starts the program with redirected input_simple. For redirected output,
      * setOutputStream() and setErrorStream can be used.
      * Exits with 0 on success, 1 on invalid arguments, and 2 on any other error
      *
      * @param args        same as main()
-     * @param inputStream redirected input, or null to use standard input
+     * @param inputStream redirected input_simple, or null to use standard input_simple
      */
     public static void mainWithInputRedirection(String[] args, InputStream inputStream)
             throws IOException {
@@ -136,13 +136,13 @@ public class NerLine {
         return consoleReader;
     }
 
-    //Todo
+    //Todo: 功能规划
     Completer getCompleter() {
         return null;
     }
 
-
-    //Todo: init parser or so
+    //beeline 支持-e,-f等操作 我这里暂时不做支持
+    //若做支持 参考 org.apache.commons.cli.GnuParser http://www.cnblogs.com/xiongmaotailang/p/5255416.html
     int initArgs(String[] args) {
         return 0;
     }
@@ -210,9 +210,7 @@ public class NerLine {
             return true;
         }
 
-
         line = line.trim();
-
         // save it to the current script, if any
         if (scriptOutputFile != null) {
             scriptOutputFile.addLine(line);
@@ -220,7 +218,7 @@ public class NerLine {
 
         //System.out.println("dispatch: " + line);
         //return commands.sql(line, getOpts().getEntireLineAsCommand());
-        return true;  //Todo
+        return true;  //Todo:做成thrift么？？？
     }
 
     private OutputFile scriptOutputFile = null;

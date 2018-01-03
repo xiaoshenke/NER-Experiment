@@ -147,10 +147,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <sourceDirectory>${basedir}/src/java</sourceDirectory>
-                    <includes>
-                        <include>**/Simple.g</include>
-                    </includes>
+                    <printGrammar>false</printGrammar>
+                    <verbose>true</verbose>
+                    <outputDirectory>src/main/java/wuxian/me/ner/parser</outputDirectory>
                 </configuration>
             </plugin>
 

@@ -3,6 +3,10 @@
  */
 lexer grammar CommonLexer;
 
+@header{
+package wuxian.me.ner.parser;
+}
+
 ID : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')* ;
 
 INT : '0'..'9'+ ;
@@ -22,12 +26,8 @@ fragment
 ESC :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
     ;
 
-COMMENT
-    :   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
-    ;
-
-LINE_COMMENT
-    : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-    ;
 
 WS : (' '|'\t'|'\r'|'\n')+ {$channel=HIDDEN;} ;
+
+LEFT : '(' ;
+RIGHT : ')' ;
