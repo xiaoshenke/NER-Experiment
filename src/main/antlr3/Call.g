@@ -13,10 +13,9 @@ package wuxian.me.ner.parser;
 
 call : ID LEFT params RIGHT -> ^(ID params) | ID WS* params -> ^(ID params) ;
 
-//call : ^(TREE_BEGIN element+) ;
-
 params : param ((',' | WS*) param)* ;
 
-param : ID '=' value | value '=' ID ;
+param : ID '=' value -> ^(ID value) | value '=' ID -> ^(ID value) ;
 
+fragment
 value : INT | FLOAT | CHAR | STRING ;

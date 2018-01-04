@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 CommonLexer.g 2018-01-03 14:18:39
+// $ANTLR 3.5.2 CommonLexer.g 2018-01-04 19:11:34
 
 package wuxian.me.ner.parser;
 

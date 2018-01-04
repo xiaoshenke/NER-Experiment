@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 Call.g 2018-01-03 14:18:39
+// $ANTLR 3.5.2 Call.g 2018-01-04 19:11:34
 
 package wuxian.me.ner.parser;
 
@@ -65,7 +65,7 @@ public class CallParser extends Parser {
 
 
 	// $ANTLR start "call"
-	// Call.g:18:1: call : ( ID LEFT params RIGHT -> ^( ID params ) | ID ( WS )* params -> ^( ID params ) );
+	// Call.g:14:1: call : ( ID LEFT params RIGHT -> ^( ID params ) | ID ( WS )* params -> ^( ID params ) );
 	public final CallParser.call_return call() throws RecognitionException {
 		CallParser.call_return retval = new CallParser.call_return();
 		retval.start = input.LT(1);
@@ -92,7 +92,7 @@ public class CallParser extends Parser {
 		RewriteRuleSubtreeStream stream_params=new RewriteRuleSubtreeStream(adaptor,"rule params");
 
 		try {
-			// Call.g:18:6: ( ID LEFT params RIGHT -> ^( ID params ) | ID ( WS )* params -> ^( ID params ) )
+			// Call.g:14:6: ( ID LEFT params RIGHT -> ^( ID params ) | ID ( WS )* params -> ^( ID params ) )
 			int alt2=2;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==ID) ) {
@@ -126,20 +126,20 @@ public class CallParser extends Parser {
 
 			switch (alt2) {
 				case 1 :
-					// Call.g:18:8: ID LEFT params RIGHT
+					// Call.g:14:8: ID LEFT params RIGHT
 					{
-					ID1=(Token)match(input,ID,FOLLOW_ID_in_call55);  
+						ID1 = (Token) match(input, ID, FOLLOW_ID_in_call51);
 					stream_ID.add(ID1);
 
-					LEFT2=(Token)match(input,LEFT,FOLLOW_LEFT_in_call57);  
+						LEFT2 = (Token) match(input, LEFT, FOLLOW_LEFT_in_call53);
 					stream_LEFT.add(LEFT2);
 
-					pushFollow(FOLLOW_params_in_call59);
+						pushFollow(FOLLOW_params_in_call55);
 					params3=params();
 					state._fsp--;
 
 					stream_params.add(params3.getTree());
-					RIGHT4=(Token)match(input,RIGHT,FOLLOW_RIGHT_in_call61);  
+						RIGHT4 = (Token) match(input, RIGHT, FOLLOW_RIGHT_in_call57);
 					stream_RIGHT.add(RIGHT4);
 
 					// AST REWRITE
@@ -153,9 +153,9 @@ public class CallParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 18:29: -> ^( ID params )
+						// 14:29: -> ^( ID params )
 					{
-						// Call.g:18:32: ^( ID params )
+						// Call.g:14:32: ^( ID params )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_ID.nextNode(), root_1);
@@ -171,12 +171,12 @@ public class CallParser extends Parser {
 					}
 					break;
 				case 2 :
-					// Call.g:18:47: ID ( WS )* params
+					// Call.g:14:47: ID ( WS )* params
 					{
-					ID5=(Token)match(input,ID,FOLLOW_ID_in_call73);  
+						ID5 = (Token) match(input, ID, FOLLOW_ID_in_call69);
 					stream_ID.add(ID5);
 
-					// Call.g:18:50: ( WS )*
+						// Call.g:14:50: ( WS )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -187,9 +187,9 @@ public class CallParser extends Parser {
 
 						switch (alt1) {
 						case 1 :
-							// Call.g:18:50: WS
+							// Call.g:14:50: WS
 							{
-							WS6=(Token)match(input,WS,FOLLOW_WS_in_call75);  
+								WS6 = (Token) match(input, WS, FOLLOW_WS_in_call71);
 							stream_WS.add(WS6);
 
 							}
@@ -200,7 +200,7 @@ public class CallParser extends Parser {
 						}
 					}
 
-					pushFollow(FOLLOW_params_in_call78);
+						pushFollow(FOLLOW_params_in_call74);
 					params7=params();
 					state._fsp--;
 
@@ -216,9 +216,9 @@ public class CallParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 18:61: -> ^( ID params )
+						// 14:61: -> ^( ID params )
 					{
-						// Call.g:18:64: ^( ID params )
+						// Call.g:14:64: ^( ID params )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot(stream_ID.nextNode(), root_1);
@@ -262,7 +262,7 @@ public class CallParser extends Parser {
 
 
 	// $ANTLR start "params"
-	// Call.g:22:1: params : param ( ( ',' | ( WS )* ) param )* ;
+	// Call.g:16:1: params : param ( ( ',' | ( WS )* ) param )* ;
 	public final CallParser.params_return params() throws RecognitionException {
 		CallParser.params_return retval = new CallParser.params_return();
 		retval.start = input.LT(1);
@@ -278,19 +278,19 @@ public class CallParser extends Parser {
 		Object WS10_tree=null;
 
 		try {
-			// Call.g:22:8: ( param ( ( ',' | ( WS )* ) param )* )
-			// Call.g:22:10: param ( ( ',' | ( WS )* ) param )*
+			// Call.g:16:8: ( param ( ( ',' | ( WS )* ) param )* )
+			// Call.g:16:10: param ( ( ',' | ( WS )* ) param )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			pushFollow(FOLLOW_param_in_params97);
+				pushFollow(FOLLOW_param_in_params91);
 			param8=param();
 			state._fsp--;
 
 			adaptor.addChild(root_0, param8.getTree());
 
-			// Call.g:22:16: ( ( ',' | ( WS )* ) param )*
+				// Call.g:16:16: ( ( ',' | ( WS )* ) param )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -301,9 +301,9 @@ public class CallParser extends Parser {
 
 				switch (alt5) {
 				case 1 :
-					// Call.g:22:17: ( ',' | ( WS )* ) param
+					// Call.g:16:17: ( ',' | ( WS )* ) param
 					{
-					// Call.g:22:17: ( ',' | ( WS )* )
+						// Call.g:16:17: ( ',' | ( WS )* )
 					int alt4=2;
 					int LA4_0 = input.LA(1);
 					if ( (LA4_0==13) ) {
@@ -321,18 +321,18 @@ public class CallParser extends Parser {
 
 					switch (alt4) {
 						case 1 :
-							// Call.g:22:18: ','
+							// Call.g:16:18: ','
 							{
-							char_literal9=(Token)match(input,13,FOLLOW_13_in_params101); 
+								char_literal9 = (Token) match(input, 13, FOLLOW_13_in_params95);
 							char_literal9_tree = (Object)adaptor.create(char_literal9);
 							adaptor.addChild(root_0, char_literal9_tree);
 
 							}
 							break;
 						case 2 :
-							// Call.g:22:24: ( WS )*
+							// Call.g:16:24: ( WS )*
 							{
-							// Call.g:22:24: ( WS )*
+								// Call.g:16:24: ( WS )*
 							loop3:
 							while (true) {
 								int alt3=2;
@@ -343,9 +343,9 @@ public class CallParser extends Parser {
 
 								switch (alt3) {
 								case 1 :
-									// Call.g:22:24: WS
+									// Call.g:16:24: WS
 									{
-									WS10=(Token)match(input,WS,FOLLOW_WS_in_params105); 
+										WS10 = (Token) match(input, WS, FOLLOW_WS_in_params99);
 									WS10_tree = (Object)adaptor.create(WS10);
 									adaptor.addChild(root_0, WS10_tree);
 
@@ -362,7 +362,7 @@ public class CallParser extends Parser {
 
 					}
 
-					pushFollow(FOLLOW_param_in_params109);
+						pushFollow(FOLLOW_param_in_params103);
 					param11=param();
 					state._fsp--;
 
@@ -405,7 +405,7 @@ public class CallParser extends Parser {
 
 
 	// $ANTLR start "param"
-	// Call.g:24:1: param : ( ID '=' value | value '=' ID );
+	// Call.g:18:1: param : ( ID '=' value -> ^( ID value ) | value '=' ID -> ^( ID value ) );
 	public final CallParser.param_return param() throws RecognitionException {
 		CallParser.param_return retval = new CallParser.param_return();
 		retval.start = input.LT(1);
@@ -423,9 +423,12 @@ public class CallParser extends Parser {
 		Object char_literal13_tree=null;
 		Object char_literal16_tree=null;
 		Object ID17_tree=null;
+		RewriteRuleTokenStream stream_14 = new RewriteRuleTokenStream(adaptor, "token 14");
+		RewriteRuleTokenStream stream_ID = new RewriteRuleTokenStream(adaptor, "token ID");
+		RewriteRuleSubtreeStream stream_value = new RewriteRuleSubtreeStream(adaptor, "rule value");
 
 		try {
-			// Call.g:24:7: ( ID '=' value | value '=' ID )
+			// Call.g:18:7: ( ID '=' value -> ^( ID value ) | value '=' ID -> ^( ID value ) )
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0==ID) ) {
@@ -443,46 +446,86 @@ public class CallParser extends Parser {
 
 			switch (alt6) {
 				case 1 :
-					// Call.g:24:9: ID '=' value
+					// Call.g:18:9: ID '=' value
 					{
-					root_0 = (Object)adaptor.nil();
+						ID12 = (Token) match(input, ID, FOLLOW_ID_in_param114);
+						stream_ID.add(ID12);
 
+						char_literal13 = (Token) match(input, 14, FOLLOW_14_in_param116);
+						stream_14.add(char_literal13);
 
-					ID12=(Token)match(input,ID,FOLLOW_ID_in_param120); 
-					ID12_tree = (Object)adaptor.create(ID12);
-					adaptor.addChild(root_0, ID12_tree);
-
-					char_literal13=(Token)match(input,14,FOLLOW_14_in_param122); 
-					char_literal13_tree = (Object)adaptor.create(char_literal13);
-					adaptor.addChild(root_0, char_literal13_tree);
-
-					pushFollow(FOLLOW_value_in_param124);
+						pushFollow(FOLLOW_value_in_param118);
 					value14=value();
 					state._fsp--;
 
-					adaptor.addChild(root_0, value14.getTree());
+						stream_value.add(value14.getTree());
+						// AST REWRITE
+						// elements: value, ID
+						// token labels:
+						// rule labels: retval
+						// token list labels:
+						// rule list labels:
+						// wildcard labels:
+						retval.tree = root_0;
+						RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "rule retval", retval != null ? retval.getTree() : null);
+
+						root_0 = (Object) adaptor.nil();
+						// 18:22: -> ^( ID value )
+						{
+							// Call.g:18:25: ^( ID value )
+							{
+								Object root_1 = (Object) adaptor.nil();
+								root_1 = (Object) adaptor.becomeRoot(stream_ID.nextNode(), root_1);
+								adaptor.addChild(root_1, stream_value.nextTree());
+								adaptor.addChild(root_0, root_1);
+							}
+
+						}
+
+
+						retval.tree = root_0;
 
 					}
 					break;
 				case 2 :
-					// Call.g:24:24: value '=' ID
+					// Call.g:18:39: value '=' ID
 					{
-					root_0 = (Object)adaptor.nil();
-
-
-					pushFollow(FOLLOW_value_in_param128);
+						pushFollow(FOLLOW_value_in_param130);
 					value15=value();
 					state._fsp--;
 
-					adaptor.addChild(root_0, value15.getTree());
+						stream_value.add(value15.getTree());
+						char_literal16 = (Token) match(input, 14, FOLLOW_14_in_param132);
+						stream_14.add(char_literal16);
 
-					char_literal16=(Token)match(input,14,FOLLOW_14_in_param130); 
-					char_literal16_tree = (Object)adaptor.create(char_literal16);
-					adaptor.addChild(root_0, char_literal16_tree);
+						ID17 = (Token) match(input, ID, FOLLOW_ID_in_param134);
+						stream_ID.add(ID17);
 
-					ID17=(Token)match(input,ID,FOLLOW_ID_in_param132); 
-					ID17_tree = (Object)adaptor.create(ID17);
-					adaptor.addChild(root_0, ID17_tree);
+						// AST REWRITE
+						// elements: value, ID
+						// token labels:
+						// rule labels: retval
+						// token list labels:
+						// rule list labels:
+						// wildcard labels:
+						retval.tree = root_0;
+						RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "rule retval", retval != null ? retval.getTree() : null);
+
+						root_0 = (Object) adaptor.nil();
+						// 18:52: -> ^( ID value )
+						{
+							// Call.g:18:55: ^( ID value )
+							{
+								Object root_1 = (Object) adaptor.nil();
+								root_1 = (Object) adaptor.becomeRoot(stream_ID.nextNode(), root_1);
+								adaptor.addChild(root_1, stream_value.nextTree());
+								adaptor.addChild(root_0, root_1);
+							}
+
+						}
+
+
+						retval.tree = root_0;
 
 					}
 					break;
@@ -515,7 +558,7 @@ public class CallParser extends Parser {
 
 
 	// $ANTLR start "value"
-	// Call.g:26:1: value : ( INT | FLOAT | CHAR | STRING );
+	// Call.g:21:1: fragment value : ( INT | FLOAT | CHAR | STRING );
 	public final CallParser.value_return value() throws RecognitionException {
 		CallParser.value_return retval = new CallParser.value_return();
 		retval.start = input.LT(1);
@@ -527,7 +570,7 @@ public class CallParser extends Parser {
 		Object set18_tree=null;
 
 		try {
-			// Call.g:26:7: ( INT | FLOAT | CHAR | STRING )
+			// Call.g:21:7: ( INT | FLOAT | CHAR | STRING )
 			// Call.g:
 			{
 			root_0 = (Object)adaptor.nil();
@@ -566,22 +609,21 @@ public class CallParser extends Parser {
 	// Delegated rules
 
 
-
-	public static final BitSet FOLLOW_ID_in_call55 = new BitSet(new long[]{0x0000000000000200L});
-	public static final BitSet FOLLOW_LEFT_in_call57 = new BitSet(new long[]{0x00000000000009D0L});
-	public static final BitSet FOLLOW_params_in_call59 = new BitSet(new long[]{0x0000000000000400L});
-	public static final BitSet FOLLOW_RIGHT_in_call61 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ID_in_call73 = new BitSet(new long[]{0x00000000000019D0L});
-	public static final BitSet FOLLOW_WS_in_call75 = new BitSet(new long[]{0x00000000000019D0L});
-	public static final BitSet FOLLOW_params_in_call78 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_param_in_params97 = new BitSet(new long[]{0x00000000000039D2L});
-	public static final BitSet FOLLOW_13_in_params101 = new BitSet(new long[]{0x00000000000009D0L});
-	public static final BitSet FOLLOW_WS_in_params105 = new BitSet(new long[]{0x00000000000019D0L});
-	public static final BitSet FOLLOW_param_in_params109 = new BitSet(new long[]{0x00000000000039D2L});
-	public static final BitSet FOLLOW_ID_in_param120 = new BitSet(new long[]{0x0000000000004000L});
-	public static final BitSet FOLLOW_14_in_param122 = new BitSet(new long[]{0x0000000000000950L});
-	public static final BitSet FOLLOW_value_in_param124 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_value_in_param128 = new BitSet(new long[]{0x0000000000004000L});
-	public static final BitSet FOLLOW_14_in_param130 = new BitSet(new long[]{0x0000000000000080L});
-	public static final BitSet FOLLOW_ID_in_param132 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ID_in_call51 = new BitSet(new long[]{0x0000000000000200L});
+	public static final BitSet FOLLOW_LEFT_in_call53 = new BitSet(new long[]{0x00000000000009D0L});
+	public static final BitSet FOLLOW_params_in_call55 = new BitSet(new long[]{0x0000000000000400L});
+	public static final BitSet FOLLOW_RIGHT_in_call57 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ID_in_call69 = new BitSet(new long[]{0x00000000000019D0L});
+	public static final BitSet FOLLOW_WS_in_call71 = new BitSet(new long[]{0x00000000000019D0L});
+	public static final BitSet FOLLOW_params_in_call74 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_param_in_params91 = new BitSet(new long[]{0x00000000000039D2L});
+	public static final BitSet FOLLOW_13_in_params95 = new BitSet(new long[]{0x00000000000009D0L});
+	public static final BitSet FOLLOW_WS_in_params99 = new BitSet(new long[]{0x00000000000019D0L});
+	public static final BitSet FOLLOW_param_in_params103 = new BitSet(new long[]{0x00000000000039D2L});
+	public static final BitSet FOLLOW_ID_in_param114 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_14_in_param116 = new BitSet(new long[]{0x0000000000000950L});
+	public static final BitSet FOLLOW_value_in_param118 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_value_in_param130 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_14_in_param132 = new BitSet(new long[]{0x0000000000000080L});
+	public static final BitSet FOLLOW_ID_in_param134 = new BitSet(new long[]{0x0000000000000002L});
 }
