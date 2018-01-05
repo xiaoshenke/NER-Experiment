@@ -9,6 +9,7 @@
     <version>1.0</version>
 
     <properties>
+        <libthrift.version>0.9.3</libthrift.version>
         <apache-log4j.version>2.7</apache-log4j.version>
         <commons-cli.version>1.2</commons-cli.version>
         <commons-lang.version>2.6</commons-lang.version>
@@ -21,6 +22,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>${libthrift.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>

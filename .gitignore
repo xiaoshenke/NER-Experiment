@@ -14,4 +14,4 @@ lib
 logs
 conf/log4j*
 conf/log4j.properties
-
+gen-javabean

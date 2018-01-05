@@ -6,5 +6,4 @@ package wuxian.me.ner;
 public class Main {
 
     //CommonLexer
-
 }
