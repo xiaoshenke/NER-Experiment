@@ -80,7 +80,7 @@ public class ThriftHttpNerService extends ThriftNerService {
                     ServletContextHandler.SESSIONS);
             context.setContextPath("/");
 
-            final String httpPath = "/ner";
+            final String httpPath = "/ner/*";
             httpServer.setHandler(context);
             context.addServlet(new ServletHolder(thriftHttpServlet), httpPath);
 
