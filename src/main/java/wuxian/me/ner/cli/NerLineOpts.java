@@ -25,6 +25,9 @@ import jline.console.completer.Completer;
 import jline.console.completer.StringsCompleter;
 import jline.console.history.MemoryHistory;
 
+/**
+ * Created by wuxian on 3/1/2018.
+ */
 class NerLineOpts implements Completer {
     public static final int DEFAULT_MAX_WIDTH = 80;
     public static final int DEFAULT_MAX_HEIGHT = 80;

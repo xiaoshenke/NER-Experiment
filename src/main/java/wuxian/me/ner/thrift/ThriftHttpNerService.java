@@ -9,12 +9,13 @@ import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.gzip.GzipHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.util.thread.ExecutorThreadPool;
 import wuxian.me.ner.thrift.proto.NerService;
+import wuxian.me.ner.thrift.util.ThreadFactoryWithGarbageCleanup;
+import wuxian.me.ner.thrift.util.ThreadPoolExecutorWithOomHook;
+import wuxian.me.ner.thrift.util.ThriftHttpServlet;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;

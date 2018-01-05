@@ -87,6 +87,7 @@ public abstract class ThriftNerService implements NerService.Iface, Runnable {
     }
 
     @Override
+    //Todo: thrift接口实现 -> 暂时先做成local运行 不进行rpc了,后序有机会再添加thrift接口
     public boolean upload(String title, String path) throws TException {
         System.out.println("ThriftNerService.upload: title: " + title + " path: " + path);
         return true;

@@ -1,4 +1,4 @@
-package wuxian.me.ner.thrift;
+package wuxian.me.ner.thrift.util;
 
 import java.util.Map;
 

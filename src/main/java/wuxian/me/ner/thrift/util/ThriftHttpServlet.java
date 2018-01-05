@@ -1,4 +1,4 @@
-package wuxian.me.ner.thrift;
+package wuxian.me.ner.thrift.util;
 
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TProtocolFactory;
