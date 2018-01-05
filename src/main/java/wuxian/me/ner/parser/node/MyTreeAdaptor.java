@@ -3,11 +3,6 @@ package wuxian.me.ner.parser.node;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeAdaptor;
-import org.antlr.runtime.tree.TreeAdaptor;
-import wuxian.me.ner.parser.node.ASTErrorNode;
-import wuxian.me.ner.parser.node.ASTNode;
-import wuxian.me.ner.server.service.FileUtil;
-import org.antlr.runtime.tree.CommonTreeAdaptor;
 
 /**
  * Creates an ASTNode for the given token. The ASTNode is a wrapper around

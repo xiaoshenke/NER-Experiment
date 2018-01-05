@@ -6,9 +6,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.junit.Test;
 import wuxian.me.ner.parser.node.ASTNode;
 import wuxian.me.ner.parser.node.MyTreeAdaptor;
-import wuxian.me.ner.server.service.FileUtil;
-
-import static org.junit.Assert.*;
+import wuxian.me.ner.service.FileUtil;
 
 public class CallParserTest {
 

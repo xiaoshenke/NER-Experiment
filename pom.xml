@@ -23,6 +23,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-metastore</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
             <version>${libthrift.version}</version>
