@@ -41,7 +41,7 @@ public class Commands {
             return false; // ???
         }
 
-        CharStream input = new ANTLRStringStream("addWord(type=1)");
+        CharStream input = new ANTLRStringStream(line);
         CallLexer lexer = new CallLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
@@ -51,7 +51,7 @@ public class Commands {
         CallParser.call_return r = null;
 
         try {
-            parser.call();
+            r = parser.call();
         } catch (RecognitionException e) {
             //Todo: print error message
             return false;
@@ -87,10 +87,12 @@ public class Commands {
 
         } else if (cmd.equals(CMD_ADD_WORDS)) {
             return handleAddWords(t, call);
-
+        } else {
+            nerLine.info("command: " + cmd + " not supported");
         }
 
-        return false;
+
+        return true;
     }
 
     private static final String CMD_UPLOAD = "upload";

@@ -252,6 +252,17 @@ public class NerLine {
         return false;
     }
 
+    void output(String msg) {
+        output(msg, true);
+    }
+
+
+    void info(String msg) {
+        if (!(getOpts().isSilent())) {
+            output(msg, true, getErrorStream());
+        }
+    }
+
     void output(ColorBuffer msg) {
         output(msg, true);
     }

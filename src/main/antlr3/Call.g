@@ -11,6 +11,7 @@ import CommonLexer;
 package wuxian.me.ner.parser;
 }
 
+//Todo: support 0 argument call
 call : ID LEFT params RIGHT -> ^(ID params) | ID WS* params -> ^(ID params) ;
 
 params : param ((',' | WS*) param)* ;
