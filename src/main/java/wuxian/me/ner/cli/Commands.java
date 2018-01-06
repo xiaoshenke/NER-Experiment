@@ -11,10 +11,12 @@ import wuxian.me.ner.parser.CallLexer;
 import wuxian.me.ner.parser.CallParser;
 import wuxian.me.ner.parser.node.ASTNode;
 import wuxian.me.ner.parser.node.MyTreeAdaptor;
-import wuxian.me.ner.service.ArticleManager;
-import wuxian.me.ner.service.ConsilienceManager;
-import wuxian.me.ner.service.FreedomManager;
-import wuxian.me.ner.service.SeriesManager;
+import wuxian.me.ner.service.*;
+
+import static java.lang.Math.log;
+import static java.lang.Math.toIntExact;
+
+import org.apache.commons.lang3.tuple.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -30,7 +32,6 @@ public class Commands {
     public Commands(NerLine nerLine) {
         this.nerLine = nerLine;
     }
-
 
     public boolean command(String cmd) {
         return execute(cmd, true, true);
@@ -53,8 +54,7 @@ public class Commands {
         try {
             r = parser.call();
         } catch (RecognitionException e) {
-            //Todo: print error message
-            return false;
+            return true;
         }
 
         ASTNode t = (ASTNode) r.getTree();
@@ -133,12 +133,31 @@ public class Commands {
         if (title == null || path == null) {
             return false;
         }
+
+        title = removeQuote(title);
+        path = removeQuote(path);
+
         try {
             long articleId = ArticleManager.addAritle(title, path);
+
+            nerLine.info("upload success,articleId: " + articleId);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private String removeQuote(String origin) {
+        if (origin == null || origin.length() == 0) {
+            return origin;
+        }
+
+        char first = origin.charAt(0);
+        char last = origin.charAt(origin.length() - 1);
+        if ((first == '"' || first == '\'') && (last == '"' || last == '\'')) {
+            return origin.substring(1, origin.length() - 1);
+        }
+        return origin;
     }
 
 
@@ -156,6 +175,8 @@ public class Commands {
         try {
             //计算好词汇后 将词汇存入series manager,后序可以进行打印
             long exeId = SeriesManager.addSeries(Long.valueOf(id), Integer.valueOf(len));
+
+            nerLine.info("series success,executeId: " + exeId);
             return true;
         } catch (Exception e) {
             return false;
@@ -175,6 +196,8 @@ public class Commands {
         }
         try {
             long exeId = ConsilienceManager.addConsilience(Long.valueOf(id), Integer.valueOf(len));
+            nerLine.info("consilience success,executeId: " + exeId);
+
             return true;
         } catch (Exception e) {
             return false;
@@ -199,6 +222,8 @@ public class Commands {
         try {
             //计算好词汇后 将词汇存入series manager,后序可以进行打印
             long exeId = FreedomManager.addFreedom(Long.valueOf(id), Integer.valueOf(len), Integer.valueOf(type));
+
+            nerLine.info("freedom success,executeId: " + exeId);
             return true;
         } catch (Exception e) {
             return false;
@@ -207,24 +232,204 @@ public class Commands {
 
     //exportwords([path=])
     private boolean handleExportWords(ASTNode t, boolean call) {
+        Set<String> words = RegWordsManager.getWords();
+        for (String s : words) {
+            info(s);
+        }
+
         return true;
     }
 
-    //addwords(type=,list=)
+    //addwords(type=,eid=,list=)
+    //addwords(word=)
     private boolean handleAddWords(ASTNode t, boolean call) {
+
+        Map<String, String> params = getParams(t);
+        String key0 = "type";
+        String type = params.containsKey(key0) ? params.get(key0) : null;
+
+        String key1 = "list";
+        String list = params.containsKey(key1) ? params.get(key1) : null;
+
+        String key2 = "eid";
+        String eid = params.containsKey(key2) ? params.get(key2) : null;
+
+        String key3 = "word";
+        String word = params.containsKey(key3) ? params.get(key3) : null;
+
+        if (word != null) {
+            word = removeQuote(word);
+            RegWordsManager.addWord(word);
+        }
+
+        if (type == null || list == null || eid == null) {
+            if (word == null) {
+                info("params of print not valid!");
+            }
+            return true;
+        }
+
+        type = removeQuote(type);
+        list = removeQuote(list);
+
+        String[] slist = list.split(",");
+
+        if (type.toLowerCase().equals("series")) {
+            SeriesManager.Series series = SeriesManager.findSeriesByExeId(Long.parseLong(eid));
+
+            List<Pair<String, Integer>> wordList = series.list;
+            for (String s : slist) {
+                Integer i = Integer.parseInt(s);
+                if (i < wordList.size()) {
+                    RegWordsManager.addWord(wordList.get(i).getKey());
+                }
+            }
+
+            info("done");
+        } else if (type.toLowerCase().equals("consilience")) {
+            ConsilienceManager.Consilience consilience = ConsilienceManager.findConsilienceByExeId(Long.parseLong(eid));
+
+            List<Pair<String, Double>> wordList = consilience.list;
+            for (String s : slist) {
+                Integer i = Integer.parseInt(s);
+                if (i < wordList.size()) {
+                    RegWordsManager.addWord(wordList.get(i).getKey());
+                }
+            }
+            info("done");
+
+        } else if (type.toLowerCase().equals("freedom")) {
+            FreedomManager.Freedom freedom = FreedomManager.findFreedomByExeId(Long.parseLong(eid));
+
+            List<Pair<String, Double>> wordList = freedom.list;
+            for (String s : slist) {
+                Integer i = Integer.parseInt(s);
+                if (i < wordList.size()) {
+                    RegWordsManager.addWord(wordList.get(i).getKey());
+                }
+            }
+            info("done");
+        }
+
+
+        return true;
+    }
+
+    //remove(aid=,eid=)
+    private boolean handleRemove(ASTNode t, boolean call) {
+
+        Map<String, String> params = getParams(t);
+        String key1 = "aid";
+        String aid = params.containsKey(key1) ? params.get(key1) : null;
+
+        String key2 = "eid";
+        String eid = params.containsKey(key2) ? params.get(key2) : null;
+        if (aid == null && eid == null) {
+            info("params of remove not valid!");
+            return true;
+        }
+
+        if (aid != null) {
+            ArticleManager.removeArticle(Long.parseLong(aid));
+            FreedomManager.removeByArticleId(Long.parseLong(aid));
+            ConsilienceManager.removeByArticleId(Long.parseLong(aid));
+            SeriesManager.removeByArticleId(Long.parseLong(aid));
+            info("article of id: " + aid + " removed!");
+        }
+        if (eid != null) {
+            Long leid = Long.parseLong(eid);
+            FreedomManager.removeByExeId(leid);
+            ConsilienceManager.removeByExeId(leid);
+            SeriesManager.removeByExeId(leid);
+            info("execution of id: " + eid + " removed!");
+        }
         return true;
     }
 
     //exeid
-    //print(eid=,[min=,[max=]])
+    //print(type=,eid=,[min=,[max=]])
     private boolean handlePrint(ASTNode t, boolean call) {
+        Map<String, String> params = getParams(t);
+        String key0 = "type";
+        String type = params.containsKey(key0) ? params.get(key0) : null;
+
+        String key1 = "eid";
+        String id = params.containsKey(key1) ? params.get(key1) : null;
+
+        String key2 = "min";
+        String min = params.containsKey(key2) ? params.get(key2) : String.valueOf(0);
+        Long lmin = Long.parseLong(min);
+
+        String key3 = "max";
+        String max = params.containsKey(key3) ? params.get(key3) : String.valueOf(50);
+        Long lmax = Long.parseLong(max);
+
+        if (type == null || id == null) {
+            info("params of print not valid!");
+            return true;
+        }
+        type = removeQuote(type);
+
+        if (type.toLowerCase().equals("series")) {
+            SeriesManager.Series series = SeriesManager.findSeriesByExeId(Long.parseLong(id));
+            if (series.list != null && series.list.size() != 0) {
+                lmin = lmin > series.list.size() ? series.list.size() : lmin;
+                lmax = lmax > series.list.size() ? series.list.size() : lmax;
+                if (lmin == lmax) {
+                    info("params of print not valid,maybe your min is over list's size?");
+                    return true;
+                }
+                info("--result--");
+                for (long i = lmin; i < lmax; i++) {
+                    Pair<String, Integer> p = series.list.get(toIntExact(i));
+                    info(i + ":  " + p.getKey() + "  " + p.getValue());
+                }
+            } else {
+                info("series of exeid: " + id + " seems not ready to print!");
+            }
+        } else if (type.toLowerCase().equals("consilience")) {
+            ConsilienceManager.Consilience consilience = ConsilienceManager.findConsilienceByExeId(Long.parseLong(id));
+            if (consilience.list != null && consilience.list.size() != 0) {
+                lmin = lmin > consilience.list.size() ? consilience.list.size() : lmin;
+                lmax = lmax > consilience.list.size() ? consilience.list.size() : lmax;
+                if (lmin == lmax) {
+                    info("params of print not valid,maybe your min is over list's size?");
+                    return true;
+                }
+                info("--result--");
+                for (long i = lmin; i < lmax; i++) {
+                    Pair<String, Double> p = consilience.list.get(toIntExact(i));
+                    info(i + ":  " + p.getKey() + "  " + p.getValue());
+                }
+            } else {
+                info("series of exeid: " + id + " seems not ready to print!");
+            }
+        } else if (type.toLowerCase().equals("freedom")) {
+            FreedomManager.Freedom freedom = FreedomManager.findFreedomByExeId(Long.parseLong(id));
+
+            if (freedom.list != null && freedom.list.size() != 0) {
+                lmin = lmin > freedom.list.size() ? freedom.list.size() : lmin;
+                lmax = lmax > freedom.list.size() ? freedom.list.size() : lmax;
+                if (lmin == lmax) {
+                    info("params of print not valid,maybe your min is over list's size?");
+                    return true;
+                }
+                info("--result--");
+                for (long i = lmin; i < lmax; i++) {
+                    Pair<String, Double> p = freedom.list.get(toIntExact(i));
+                    info(i + ":  " + p.getKey() + "  " + p.getValue());
+                }
+            } else {
+                info("freedom of exeid: " + id + " seems not ready to print!");
+            }
+        }
         return true;
     }
 
-    //remove(eid=)
-    private boolean handleRemove(ASTNode t, boolean call) {
-        return true;
+    private void info(String content) {
+        if (nerLine != null) {
+            nerLine.info(content);
+        }
     }
-
 
 }

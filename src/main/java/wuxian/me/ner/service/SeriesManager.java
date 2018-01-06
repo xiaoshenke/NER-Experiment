@@ -34,7 +34,7 @@ public class SeriesManager {
         Series series = new Series();
         series.seriesLength = len;
         series.articleId = articleId;
-        series.executeId = genId("");
+        series.executeId = EIdGenerator.genId();
 
         List<String> wordList = ArticleManager.getWordsBy(series.articleId);
         if (wordList == null) {
@@ -46,13 +46,6 @@ public class SeriesManager {
         return series.executeId;
 
     }
-
-    private static AtomicLong id = new AtomicLong(0);
-
-    private static Long genId(String title) {
-        return id.getAndIncrement();
-    }
-
 
     public static void removeByExeId(Long exeId) {
         Iterator<Series> iterator = seriesList.iterator();
@@ -99,7 +92,7 @@ public class SeriesManager {
         Long executeId;
         Long articleId;
         Integer seriesLength;  //连续多少个词进行计算
-        List<Pair<String, Integer>> list;
+        public List<Pair<String, Integer>> list;
 
         @Override
         public boolean equals(Object o) {

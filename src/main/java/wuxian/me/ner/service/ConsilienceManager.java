@@ -32,7 +32,7 @@ public class ConsilienceManager {
 
         Consilience consilience = new Consilience();
         consilience.articleId = articleId;
-        consilience.executeId = genId("");
+        consilience.executeId = EIdGenerator.genId();
 
         consilience.len = len;
 
@@ -44,12 +44,6 @@ public class ConsilienceManager {
         consilienceList.add(consilience);
         return consilience.executeId;
 
-    }
-
-    private static AtomicLong id = new AtomicLong(0);
-
-    private static Long genId(String title) {
-        return id.getAndIncrement();
     }
 
     public static void removeByExeId(Long exeId) {
@@ -97,6 +91,6 @@ public class ConsilienceManager {
         Long executeId;
         Long articleId;
         Integer len;
-        List<Pair<String, Double>> list;
+        public List<Pair<String, Double>> list;
     }
 }

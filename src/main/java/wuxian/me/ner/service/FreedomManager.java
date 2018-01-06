@@ -32,7 +32,7 @@ public class FreedomManager {
 
         Freedom freedom = new Freedom();
         freedom.articleId = articleId;
-        freedom.executeId = genId("");
+        freedom.executeId = EIdGenerator.genId();
         freedom.type = type;
         freedom.len = len;
 
@@ -46,13 +46,6 @@ public class FreedomManager {
         return freedom.executeId;
 
     }
-
-    private static AtomicLong id = new AtomicLong(0);
-
-    private static Long genId(String title) {
-        return id.getAndIncrement();
-    }
-
 
     public static void removeByExeId(Long exeId) {
         Iterator<Freedom> iterator = freedomList.iterator();
@@ -100,7 +93,7 @@ public class FreedomManager {
         Long articleId;
         Integer len;
         Integer type;     //left:0 right:1
-        List<Pair<String, Double>> list;
+        public List<Pair<String, Double>> list;
 
 
     }
