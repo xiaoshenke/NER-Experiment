@@ -1,6 +1,7 @@
 package wuxian.me.ner;
 
-import org.apache.commons.lang3.tuple.*;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import wuxian.me.ner.service.FileUtil;
 import wuxian.me.ner.service.statistic.MidStatistics;
 import wuxian.me.ner.service.statistic.Util;
@@ -12,12 +13,12 @@ import java.util.*;
 /**
  * Created by wuxian on 10/1/2018.
  */
-public class StatisticSingle {
+public class StatisticSeries {
 
     public static void main(String[] args) throws Exception {
         if (args == null || args.length < 1) {
             throw new IllegalArgumentException(
-                    "must give these args: inputPath | outputPath ");
+                    "must give these args: inputPath | length | outputPath ");
         }
 
         String str = String.valueOf(args[0]);
@@ -25,9 +26,14 @@ public class StatisticSingle {
             throw new IllegalArgumentException("first argument can't be empty");
         }
 
-        String output = null;
+        int len = 2;
         if (args.length >= 2) {
-            output = String.valueOf(args[1]);
+            len = Integer.valueOf(args[1]);
+        }
+
+        String output = null;
+        if (args.length >= 3) {
+            output = String.valueOf(args[2]);
         }
 
         boolean isFile = false;
@@ -49,9 +55,11 @@ public class StatisticSingle {
         String[] contents = content.split(" ");
         Writings writings = new Writings();
         writings.setBaseWordList(Arrays.asList(contents));
-        writings.generateWordsMap(writings);
 
-        Map<MidStatistics.Word, List<Integer>> map = writings.getWordPostionMap();
+        MidStatistics mid = new MidStatistics(len);
+        mid.generateWordsMap(writings);
+
+        Map<MidStatistics.Word, List<Integer>> map = mid.getWordPostionMap();
         List<Map.Entry<MidStatistics.Word, List<Integer>>> sortedList = Util.getSortedMap(map, new Comparator<List<Integer>>() {
             @Override
             public int compare(List<Integer> o1, List<Integer> o2) {
@@ -79,5 +87,6 @@ public class StatisticSingle {
         }
 
     }
+
 
 }
