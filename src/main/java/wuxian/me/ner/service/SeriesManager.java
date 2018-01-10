@@ -1,7 +1,4 @@
 package wuxian.me.ner.service;
-
-import com.sun.istack.internal.Nullable;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -68,7 +65,6 @@ public class SeriesManager {
         }
     }
 
-    @Nullable
     public static Series findSeriesByArticleId(Long articleId, Integer length) {
         for (Series series : seriesList) {
             if (series.articleId.equals(articleId) && series.seriesLength.equals(length)) {
@@ -78,7 +74,6 @@ public class SeriesManager {
         return null;
     }
 
-    @Nullable
     public static Series findSeriesByExeId(Long exeId) {
         for (Series serie : seriesList) {
             if (serie.executeId.equals(exeId)) {

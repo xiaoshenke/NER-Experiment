@@ -1,6 +1,5 @@
 package wuxian.me.ner.service;
 
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -68,7 +67,6 @@ public class FreedomManager {
         }
     }
 
-    @Nullable
     public static Freedom findFreedomByArticleId(Long articleId, int type, int len) {
         for (Freedom freedom : freedomList) {
             if (freedom.articleId.equals(articleId) && freedom.type.equals(type) && freedom.len.equals(len)) {
@@ -78,7 +76,6 @@ public class FreedomManager {
         return null;
     }
 
-    @Nullable
     public static Freedom findFreedomByExeId(Long exeId) {
         for (Freedom serie : freedomList) {
             if (serie.executeId.equals(exeId)) {

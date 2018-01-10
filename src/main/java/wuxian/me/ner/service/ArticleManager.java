@@ -1,6 +1,5 @@
 package wuxian.me.ner.service;
 
-import com.sun.istack.internal.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +43,6 @@ public class ArticleManager {
     static List<Article> articleList = new ArrayList<>();
 
 
-    @Nullable
     public static List<String> getWordsBy(Long articleId) {
 
         Article article = findArticleBy(articleId);
@@ -114,7 +112,6 @@ public class ArticleManager {
         return art.articleId;
     }
 
-    @Nullable
     public static Article findArticleBy(String title) {
         for (Article article : articleList) {
             if (article.title.equals(title)) {
@@ -124,7 +121,6 @@ public class ArticleManager {
         return null;
     }
 
-    @Nullable
     public static Article findArticleBy(Long articleId) {
         for (Article article : articleList) {
             if (article.articleId.equals(articleId)) {

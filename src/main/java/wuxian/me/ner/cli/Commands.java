@@ -1,7 +1,6 @@
 package wuxian.me.ner.cli;
 
 import com.google.common.base.Splitter;
-import com.sun.istack.internal.Nullable;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -104,7 +103,6 @@ public class Commands {
     private static final String CMD_SERIES = "series";
     private static final String CMD_ADD_WORDS = "addwords";
 
-    @Nullable
     private Map<String, String> getParams(ASTNode t) {
 
         Map<String, String> params = new HashMap<>();

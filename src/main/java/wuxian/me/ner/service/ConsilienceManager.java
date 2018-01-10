@@ -1,6 +1,5 @@
 package wuxian.me.ner.service;
 
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -67,7 +66,6 @@ public class ConsilienceManager {
         }
     }
 
-    @Nullable
     public static Consilience findConsilienceByArticleId(Long articleId, int len) {
         for (Consilience consilience : consilienceList) {
             if (consilience.articleId.equals(articleId) && consilience.len.equals(len)) {
@@ -77,7 +75,6 @@ public class ConsilienceManager {
         return null;
     }
 
-    @Nullable
     public static Consilience findConsilienceByExeId(Long exeId) {
         for (Consilience serie : consilienceList) {
             if (serie.executeId.equals(exeId)) {
